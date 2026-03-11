@@ -5,14 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from '../App'
 import './index.css'
 import { Toaster } from 'sonner'
-
-const ReactQueryDevtools = import.meta.env.DEV
-  ? React.lazy(() =>
-      import('@tanstack/react-query-devtools').then(d => ({
-        default: d.ReactQueryDevtools
-      }))
-    )
-  : () => null
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,7 +48,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <App />
         <Toaster richColors position='top-right' />
       </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+     {import.meta.env.VITE_ENABLE_DEVTOOLS === 'true' && <ReactQueryDevtools />}
     </QueryClientProvider>
   </React.StrictMode>
 )
